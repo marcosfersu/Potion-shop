@@ -22,7 +22,7 @@ export default class Environment {
 		this.sunLight.shadow.normalBias = 0.05;
 		this.sunLight2.shadow.normalBias = 0.05;
 		this.sunLight.position.set(2, 1.4, 1);
-		this.sunLight2.position.set(-3, 2, 1.4);
+		this.sunLight2.position.set(-3, 2, -1);
 		this.scene.add(this.sunLight);
 		this.scene.add(this.sunLight2);
 
