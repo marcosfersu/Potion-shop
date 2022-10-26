@@ -3,6 +3,7 @@ import Experience from "../Experience";
 import Environment from "./Environment";
 import Room from "./Room";
 import Controls from "./Controls";
+import Floor from "./Floor";
 
 export default class Word {
 	constructor() {
@@ -17,6 +18,7 @@ export default class Word {
 			this.environment = new Environment();
 			this.room = new Room();
 			this.Controls = new Controls();
+			this.floor = new Floor();
 		});
 	}
 
