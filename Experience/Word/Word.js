@@ -20,5 +20,9 @@ export default class Word {
 
   resize() {}
 
-  update() {}
+  update() {
+    if (this.room) {
+      this.room.update();
+    }
+  }
 }
