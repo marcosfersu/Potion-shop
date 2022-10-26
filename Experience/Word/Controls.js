@@ -22,6 +22,10 @@ export default class Controls {
 		this.position = new THREE.Vector3(0, 0, 0);
 		this.lookAtPosition = new THREE.Vector3(0, 0, 0);
 
+		this.directionalVector = new THREE.Vector3(0, 0, 0);
+		this.staticVertor = new THREE.Vector3(0, 1, 0);
+		this.crossVector = new THREE.Vector3(0, 0, 0);
+
 		this.setPath();
 		this.onWheel();
 	}
@@ -30,11 +34,10 @@ export default class Controls {
 		//Create a closed wavey loop
 		this.curve = new THREE.CatmullRomCurve3(
 			[
-				new THREE.Vector3(-10, 0, 10),
-				new THREE.Vector3(-5, 5, 5),
-				new THREE.Vector3(0, 0, 0),
-				new THREE.Vector3(5, -5, 5),
-				new THREE.Vector3(10, 0, 10),
+				new THREE.Vector3(-5, 0, 0),
+				new THREE.Vector3(0, 0, -5),
+				new THREE.Vector3(5, 0, 0),
+				new THREE.Vector3(0, 0, 5),
 			],
 			true
 		);
@@ -72,31 +75,17 @@ export default class Controls {
 			this.lerp.target,
 			this.lerp.ease
 		);
-
-		if (this.back) {
-			this.lerp.target -= 0.001;
-		} else {
-			this.lerp.target += 0.001;
-		}
-
-		this.lerp.current = GSAP.utils.clamp(0, 1, this.lerp.current);
-		this.lerp.target = GSAP.utils.clamp(0, 1, this.lerp.target);
-
-		this.curve.getPointAt(this.lerp.current, this.position);
-		this.curve.getPointAt(this.lerp.current + 0.00001, this.lookAtPosition);
-
+		this.curve.getPointAt(this.lerp.current % 1, this.position);
 		this.camera.orthographicCamera.position.copy(this.position);
-		this.camera.orthographicCamera.lookAt(this.lookAtPosition);
 
-		/*
-    // progres on the time
+		this.directionalVector.subVectors(
+			this.curve.getPointAt((this.lerp.current % 1) + 0.00001),
+			this.position
+		);
 
-		this.curve.getPointAt(this.progress % 1, this.dummyCurve);
-		
-    //follow the path to time
-		//this.progress += 0.001;
-		
-    this.camera.orthographicCamera.position.copy(this.dummyCurve);
-    */
+		this.directionalVector.normalize();
+		this.crossVector.crossVectors(this.directionalVector, this.staticVertor);
+		this.crossVector.multiplyScalar(100000);
+		this.camera.orthographicCamera.lookAt(0, 0, 0);
 	}
 }
