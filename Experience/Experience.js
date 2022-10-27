@@ -27,7 +27,7 @@ export default class Experience {
     this.word = new Word();
 
     this.sizes.on("resize", () => {
-      this.update();
+      this.resize();
     });
     this.time.on("update", () => {
       this.update();

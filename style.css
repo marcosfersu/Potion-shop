@@ -11,6 +11,27 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
+h1,
+section,
+p,
+span,
+svg {
+  transition: background-color 0.5s, color 0.5s;
+}
+
+:root {
+  /* Light Theme Variables */
+  --color-text-light: #333332;
+  --color-background-light: #faf4e5;
+  --color-pink-light: #e5a1aa;
+  --color-green-light: #7ad0ac;
+  --color-blue-light: #8395cd;
+
+  /* Dark Theme Variables */
+  --color-text-dark: #faf4e5;
+  --color-background-dark: #8395cd;
+}
+
 /* ------------------------------- Experience ------------------------------- */
 
 .experience {
@@ -49,35 +70,147 @@ body {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 .hero-main {
   position: absolute;
-  bottom: 168px;
+  bottom: calc(50% - 250px);
   left: 0;
-  color: var(--color-text);
+  color: var(--color-text-light);
 }
 
 .hero-second {
   position: absolute;
   top: calc(50% - 150px);
   right: 0;
-  color: var(--color-text);
+  color: var(--color-text-light);
 }
 
 .hero-main-title {
-  font-size: 400%;
-  color: var(--color-text);
+  font-size: 600%;
+  color: var(--color-text-light);
 }
 
 .hero-main-description {
   font-size: 180%;
-  color: var(--color-text);
+  color: var(--color-text-light);
 }
 
 .hero-second-subheading {
   font-size: 250%;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: var(--color-text-light);
+}
+
+/* --------------------------- Section Formatting --------------------------- */
+.section-margin {
+  height: 3000px;
+  width: 100%;
+}
+
+.section {
+  position: relative;
+  width: 50%;
+  padding: 1000px 4%;
+  margin: 0;
+  background-color: var(--color-background-light);
+  overflow: hidden;
+}
+
+.left {
+  margin-right: auto;
+  border-top-right-radius: 700px 700px;
+  border-bottom-right-radius: 0px 0px;
+}
+
+.right {
+  margin-left: auto;
+  border-top-left-radius: 700px 700px;
+  border-bottom-left-radius: 0px 0px;
+}
+
+/* -------------------------------- Sections -------------------------------- */
+
+.section-intro-wrapper {
+  position: relative;
+  padding: 20% 5%;
+  border-bottom: 2px solid var(--color-pink-light);
+  padding-bottom: 400px;
+}
+
+.section-intro-wrapper:nth-child(3) {
+  border-bottom: 2px solid var(--color-green-light);
+}
+
+.section-detail-wrapper {
+  position: relative;
+  padding: 20% 5%;
+}
+
+.section-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.8;
+  margin-top: 64px;
+  color: var(--color-text-light);
+}
+
+.section-text {
+  line-height: 2;
+  margin-top: 18px;
+  font-size: 16px;
+  color: var(--color-text-light);
+}
+
+/* Fancy Decoration Part of Section */
+.section-title {
+  position: relative;
+  color: var(--color-pink-light);
+}
+
+.section-title-text {
+  display: block;
+  font-size: 40px;
+  font-weight: 500;
+  transform-origin: left;
+  transform: skewY(25deg);
+  z-index: 5;
+  text-transform: uppercase;
+  color: var(--color-pink-light);
+}
+
+.styleOne,
+.styleTwo,
+.styleThree {
+  position: absolute;
+  display: block;
+  width: 100%;
+  max-width: 278px;
+  height: 60px;
+  border: 1px solid var(--color-pink-light);
+  transform-origin: left;
+  transform: skewY(-25deg);
+}
+
+.styleOne {
+  top: 0px;
+}
+
+.styleTwo {
+  top: 80px;
+}
+
+.styleThree {
+  top: 80px;
+  transform: skewY(25deg);
+  background-color: var(--color-pink-light);
+}
+
+.section-number {
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+  color: var(--color-pink-light);
+  font-size: 24px;
 }
