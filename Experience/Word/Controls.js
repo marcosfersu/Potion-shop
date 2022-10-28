@@ -17,11 +17,10 @@ export default class Controls {
   }
 
   setPath() {
-    console.log(this.room);
     this.timeline = new GSAP.timeline();
     this.timeline.to(this.room.position, {
       x: () => {
-        return this.sizes.width * 0.001;
+        return this.sizes.width * 0.0012;
       },
       scrollTrigger: {
         trigger: ".first-move",

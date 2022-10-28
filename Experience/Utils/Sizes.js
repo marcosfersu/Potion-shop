@@ -10,7 +10,6 @@ export default class Sizes extends EventEmitter {
     this.frustrum = 5;
 
     window.addEventListener("resize", () => {
-      console.log(this.width);
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.aspect = this.width / this.height;

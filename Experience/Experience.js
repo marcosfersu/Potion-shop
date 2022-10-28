@@ -8,6 +8,8 @@ import Time from "./Utils/Time";
 import Camera from "./Camera.js";
 import Renderer from "./Renderer";
 
+import Theme from "./Theme";
+
 import Word from "./Word/Word";
 
 export default class Experience {
@@ -24,6 +26,7 @@ export default class Experience {
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.resources = new Resources(assets);
+    this.theme = new Theme();
     this.word = new Word();
 
     this.sizes.on("resize", () => {
