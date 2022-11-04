@@ -54,31 +54,31 @@ export default class Room {
 
     //const rectLightHelper = new RectAreaLightHelper(rectLight);
     //rectLight.add(rectLightHelper);
-    //console.log(this.room);
+    //console.log(this.room);bubble
   }
 
   setAnimation() {
     this.mixer = new THREE.AnimationMixer(this.actualRoom);
     this.chest = this.mixer.clipAction(this.room.animations[0]);
     this.chestKeep = this.mixer.clipAction(this.room.animations[1]);
-    this.burbleOne = this.mixer.clipAction(this.room.animations[2]);
-    this.burbleTwo = this.mixer.clipAction(this.room.animations[3]);
-    this.burbleThree = this.mixer.clipAction(this.room.animations[4]);
-    this.burbleFour = this.mixer.clipAction(this.room.animations[5]);
+    this.bubbleOne = this.mixer.clipAction(this.room.animations[2]);
+    this.bubbleTwo = this.mixer.clipAction(this.room.animations[3]);
+    this.bubbleThree = this.mixer.clipAction(this.room.animations[4]);
+    this.bubbleFour = this.mixer.clipAction(this.room.animations[5]);
 
     this.chest.play();
     this.chestKeep.play();
-    this.burbleOne.play();
-    this.burbleTwo.play();
-    this.burbleThree.play();
-    this.burbleFour.play();
+    this.bubbleOne.play();
+    this.bubbleTwo.play();
+    this.bubbleThree.play();
+    this.bubbleFour.play();
   }
 
   onMouseMove() {
     window.addEventListener("mousemove", (e) => {
       this.rotation =
         ((e.clientX - window.innerWidth / 2) * 2) / window.innerWidth;
-      this.lerp.target = this.rotation * 0.12;
+      this.lerp.target = this.rotation * 0.1;
     });
   }
 
