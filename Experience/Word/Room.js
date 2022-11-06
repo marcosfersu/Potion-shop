@@ -2,6 +2,8 @@ import GSAP from "gsap";
 import * as THREE from "three";
 import Experience from "../Experience";
 
+//import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
+
 export default class Room {
   constructor() {
     this.experience = new Experience();
