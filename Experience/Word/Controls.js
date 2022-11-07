@@ -251,7 +251,7 @@ export default class Controls {
         this.thirdMoveTimeline = new GSAP.timeline({
           scrollTrigger: {
             trigger: ".third-move",
-            start: "top top",
+            start: "center center",
             end: "bottom bottom",
             scrub: 0.6,
             invalidateOnRefresh: true,
@@ -268,12 +268,47 @@ export default class Controls {
         this.thirdMoveTimeline = new GSAP.timeline({
           scrollTrigger: {
             trigger: ".third-move",
-            start: "top top",
+            start: "center center",
             end: "bottom bottom",
             scrub: 0.6,
             invalidateOnRefresh: true,
           },
-        }).to(this.room.position, {});
+        });
+
+        this.room.children.forEach((child) => {
+          if (child.name === "step-1") {
+            GSAP.to(child.position, {
+              x: -2.1845946311950684,
+              y: 0.5344138145446777,
+              z: 8.012523651123047,
+              duration: 0.3,
+            });
+          }
+          if (child.name === "step-2") {
+            GSAP.to(child.position, {
+              x: -3.0983872413635254,
+              y: 0.2833542823791504,
+              z: 8.918571472167969,
+              duration: 0.45,
+            });
+          }
+          if (child.name === "step-3") {
+            GSAP.to(child.position, {
+              x: -3.806932210922241,
+              y: 0.03467106819152832,
+              z: 9.618904113769531,
+              duration: 0.55,
+            });
+          }
+          if (child.name === "sign") {
+            GSAP.to(child.scale, {
+              x: 1,
+              y: 1,
+              z: 1,
+              duration: 1.5,
+            });
+          }
+        });
       },
     });
   }

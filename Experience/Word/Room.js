@@ -35,6 +35,21 @@ export default class Room {
           groupchild.receiveShadow = true;
         });
       }
+
+      if (child.name === "step-1") {
+        child.position.y = -3;
+      }
+
+      if (child.name === "step-2") {
+        child.position.y = -3;
+      }
+
+      if (child.name === "step-3") {
+        child.position.y = -3;
+      }
+      if (child.name === "sign") {
+        child.scale.set(0, 0, 0);
+      }
     });
 
     this.scene.add(this.actualRoom);
