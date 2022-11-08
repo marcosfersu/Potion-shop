@@ -17,9 +17,9 @@ export default class Word {
 
     this.resources.on("ready", () => {
       this.environment = new Environment();
+      this.floor = new Floor();
       this.room = new Room();
       this.Controls = new Controls();
-      this.floor = new Floor();
     });
 
     this.theme.on("switch", (theme) => {
