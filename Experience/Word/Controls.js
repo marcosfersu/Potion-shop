@@ -403,11 +403,23 @@ export default class Controls {
             scrub: 0.6,
             invalidateOnRefresh: true,
           },
-        }).to(this.circleSecond.scale, {
-          x: 3,
-          y: 3,
-          z: 3,
-        });
+        })
+          .to(
+            this.circleSecond.scale,
+            {
+              x: 3,
+              y: 3,
+              z: 3,
+            },
+            "same"
+          )
+          .to(
+            this.room.position,
+            {
+              y: 0.7,
+            },
+            "same"
+          );
         // Third section -----------------------------------------
         this.thirdMoveTimeline = new GSAP.timeline({
           scrollTrigger: {
