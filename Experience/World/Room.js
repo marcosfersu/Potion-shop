@@ -2,16 +2,21 @@ import GSAP from "gsap";
 import * as THREE from "three";
 import Experience from "../Experience";
 
+import { EventEmitter } from "events";
+
 //import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 
-export default class Room {
+export default class Room extends EventEmitter {
 	constructor() {
+		super();
 		this.experience = new Experience();
 		this.scene = this.experience.scene;
 		this.resources = this.experience.resources;
 		this.time = this.experience.time;
+		this.preloader = this.experience.preloader;
 		this.room = this.resources.items.room;
 		this.actualRoom = this.room.scene;
+		this.roomChildren = {};
 
 		this.lerp = {
 			current: 0,
@@ -21,7 +26,6 @@ export default class Room {
 
 		this.setModel();
 		this.setAnimation();
-
 		this.onMouseMove();
 	}
 
@@ -37,12 +41,15 @@ export default class Room {
 				});
 			}
 
+			child.scale.set(0, 0, 0);
+
 			if (
 				child.name === "step-1" ||
 				child.name === "step-2" ||
 				child.name === "step-3"
 			) {
 				child.position.y = -3;
+				child.scale.set(1, 1, 1);
 			}
 
 			if (child.name === "sign") {
@@ -52,10 +59,9 @@ export default class Room {
 			if (child.name === "lamp") {
 				child.scale.set(0, 0, 0);
 			}
-		});
 
-		this.scene.add(this.actualRoom);
-		this.actualRoom.scale.set(0.15, 0.15, 0.15);
+			this.roomChildren[child.name.toLowerCase()] = child;
+		});
 
 		const width = 0.5;
 		const height = 0.7;
@@ -71,9 +77,14 @@ export default class Room {
 		rectLight.rotation.z = Math.PI / 4;
 		this.actualRoom.add(rectLight);
 
+		this.roomChildren["rectLight"] = rectLight;
+
 		//const rectLightHelper = new RectAreaLightHelper(rectLight);
 		//rectLight.add(rectLightHelper);
 		//console.log(this.room);bubble
+
+		this.scene.add(this.actualRoom);
+		this.actualRoom.scale.set(0.15, 0.15, 0.15);
 	}
 
 	setAnimation() {
@@ -85,12 +96,9 @@ export default class Room {
 		this.bubbleThree = this.mixer.clipAction(this.room.animations[4]);
 		this.bubbleFour = this.mixer.clipAction(this.room.animations[5]);
 
-		this.chest.play();
-		this.chestKeep.play();
-		this.bubbleOne.play();
-		this.bubbleTwo.play();
-		this.bubbleThree.play();
-		this.bubbleFour.play();
+		this.preloader.on("playanimation", () => {
+			//this.playAnimation();
+		});
 	}
 
 	onMouseMove() {
@@ -99,6 +107,15 @@ export default class Room {
 				((e.clientX - window.innerWidth / 2) * 2) / window.innerWidth;
 			this.lerp.target = this.rotation * 0.1;
 		});
+	}
+
+	playAnimation() {
+		this.chest.play();
+		this.chestKeep.play();
+		this.bubbleOne.play();
+		this.bubbleTwo.play();
+		this.bubbleThree.play();
+		this.bubbleFour.play();
 	}
 
 	resize() {}
