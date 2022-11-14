@@ -26,7 +26,6 @@ export default class Preloader extends EventEmitter {
 	setAssets() {
 		this.room = this.experience.world.room.actualRoom;
 		this.roomChildren = this.experience.world.room.roomChildren;
-		console.log(this.roomChildren);
 	}
 
 	firstIntro() {
@@ -34,7 +33,7 @@ export default class Preloader extends EventEmitter {
 			this.timeline = new GSAP.timeline();
 			if (this.device === "desktop") {
 				this.timeline
-					.to(this.roomChildren.cube.scale, {
+					.to(this.roomChildren.potionpress.scale, {
 						x: 1.4,
 						y: 1.4,
 						z: 1.4,
@@ -49,7 +48,7 @@ export default class Preloader extends EventEmitter {
 					});
 			} else {
 				this.timeline
-					.to(this.roomChildren.cube.scale, {
+					.to(this.roomChildren.potionpress.scale, {
 						x: 1.4,
 						y: 1.4,
 						z: 1.4,
@@ -63,7 +62,6 @@ export default class Preloader extends EventEmitter {
 						onComplete: resolve,
 					});
 			}
-			console.log(this.roomChildren.room.rotation);
 		});
 	}
 
@@ -79,7 +77,7 @@ export default class Preloader extends EventEmitter {
 					duration: 0.7,
 				})
 				.to(
-					this.roomChildren.cube.scale,
+					this.roomChildren.potionpress.scale,
 					{
 						x: 0,
 						y: 0,
@@ -90,31 +88,129 @@ export default class Preloader extends EventEmitter {
 					"same"
 				)
 				.to(
-					this.roomChildren.room.scale,
+					this.roomChildren.cuberoom.scale,
 					{
 						x: 1,
 						y: 1,
 						z: 1,
 						ease: "power1.out",
-						duration: 0.5,
+						duration: 0.7,
 					},
 					"same"
 				)
 				.to(
-					this.roomChildren.room.rotation,
+					this.roomChildren.cuberoom.rotation,
 					{
 						y: 2 * Math.PI + -0.7833147388095416,
 						ease: "power1.out",
-						duration: 0.5,
+						duration: 0.7,
 					},
 					"same"
 				)
-				.to(this.roomChildren.library001.scale, {
+				.set(this.roomChildren.room.scale, {
+					x: 1,
+					y: 1,
+					z: 1,
+				})
+				.to(this.roomChildren.cuberoom.scale, {
+					x: 0,
+					y: 0,
+					z: 0,
+					ease: "power1.out",
+					duration: 0.5,
+				})
+				.to(
+					this.roomChildren.library001.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.5)",
+						duration: 0.5,
+					},
+					"library"
+				)
+				.to(
+					this.roomChildren.library.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.5)",
+						duration: 0.5,
+						delay: 0.2,
+					},
+					"library"
+				)
+				.to(
+					this.roomChildren.table.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.5)",
+						duration: 0.4,
+					},
+					"table"
+				)
+				.to(
+					this.roomChildren.lvy.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						duration: 0.4,
+					},
+					"table"
+				)
+				.to(
+					this.roomChildren.shelves.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "power1.out",
+						duration: 0.3,
+					},
+					"shelves"
+				)
+				.to(
+					this.roomChildren.shelves001.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "power1.out",
+						duration: 0.3,
+						delay: 0.1,
+					},
+					"shelves"
+				)
+				.to(
+					this.roomChildren.shelves002.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "power1.out",
+						duration: 0.3,
+						delay: 0.1,
+					},
+					"shelves"
+				)
+				.to(this.roomChildren.book017.scale, {
 					x: 1,
 					y: 1,
 					z: 1,
 					ease: "power1.out",
-					duration: 0.5,
+					duration: 0.2,
+				})
+				.to(this.roomChildren.botle011.scale, {
+					x: 1,
+					y: 1,
+					z: 1,
+					ease: "power1.out",
+					duration: 0.2,
 				});
 		});
 	}
