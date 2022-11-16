@@ -95,7 +95,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "power1.out",
-            duration: 0.4,
+            duration: 0.7,
           },
           "same"
         )
@@ -104,7 +104,7 @@ export default class Preloader extends EventEmitter {
           {
             y: 2 * Math.PI + -0.7833147388095416,
             ease: "power1.out",
-            duration: 0.4,
+            duration: 0.7,
           },
           "same"
         )
@@ -118,7 +118,7 @@ export default class Preloader extends EventEmitter {
           y: 0,
           z: 0,
           ease: "power1.out",
-          duration: 0.4,
+          duration: 0.6,
         })
         .to(
           this.roomChildren.library001.scale,
@@ -880,7 +880,7 @@ export default class Preloader extends EventEmitter {
         .to(
           this.roomChildren.cauldron.rotation,
           {
-            y: Math.PI * 2,
+            y: Math.PI * 4,
             ease: "back.out(2.5)",
             duration: 0.6,
           },
@@ -917,7 +917,7 @@ export default class Preloader extends EventEmitter {
     let currentY = e.touches[0].clientY;
     let difference = this.initalY - currentY;
     if (difference > 0) {
-      console.log("swipped up");
+      //console.log("swipped up");
       this.removeEventListeners();
       this.playSecondIntro();
     }
@@ -931,7 +931,9 @@ export default class Preloader extends EventEmitter {
   }
 
   async playIntro() {
+    this.scaleFlag = true;
     await this.firstIntro();
+    this.moveFlag = true;
     this.scrollOnceEvent = this.onScroll.bind(this);
     this.touchStart = this.onTouch.bind(this);
     this.touchMove = this.onTouchMove.bind(this);
@@ -941,7 +943,37 @@ export default class Preloader extends EventEmitter {
   }
 
   async playSecondIntro() {
+    this.moveFlag = false;
     await this.secondIntro();
     this.emit("playanimation");
+    this.emit("enablecontrols");
+  }
+  move() {
+    if (this.device === "desktop") {
+      this.room.position.set(-1, 0, 0);
+    } else {
+      this.room.position.set(0, 0, -1);
+    }
+  }
+
+  scale() {
+    this.roomChildren.rectLight.width = 0;
+    this.roomChildren.rectLight.height = 0;
+
+    if (this.device === "desktop") {
+      this.room.scale.set(0.15, 0.15, 0.15);
+    } else {
+      this.room.scale.set(0.07, 0.07, 0.07);
+    }
+  }
+
+  update() {
+    if (this.moveFlag) {
+      this.move();
+    }
+
+    if (this.scaleFlag) {
+      //this.scale();
+    }
   }
 }
