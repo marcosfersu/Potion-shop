@@ -40,7 +40,7 @@ export default class Camera {
 		// 6.5
 		this.orthographicCamera.position.y = 3.8;
 		this.orthographicCamera.position.z = 5;
-		this.orthographicCamera.rotation.x = -Math.PI / 6.2;
+		this.orthographicCamera.rotation.x = -Math.PI / 6.4;
 
 		this.scene.add(this.orthographicCamera);
 
