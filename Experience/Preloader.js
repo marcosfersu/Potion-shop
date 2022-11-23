@@ -33,18 +33,25 @@ export default class Preloader extends EventEmitter {
     convert(document.querySelector(".second-sub"));
     this.room = this.experience.world.room.actualRoom;
     this.roomChildren = this.experience.world.room.roomChildren;
-    console.log(this.roomChildren);
   }
 
   firstIntro() {
     return new Promise((resolve) => {
       this.timeline = new GSAP.timeline();
+      this.timeline.set(".animatedis", { y: 0, yPercent: 100 });
+      this.timeline.to(".preloader", {
+        opacity: 0,
+        delay: 1,
+        onComplete: () => {
+          document.querySelector(".preloader").classList.add("hidden");
+        },
+      });
       if (this.device === "desktop") {
         this.timeline
           .to(this.roomChildren.potionpress.scale, {
-            x: 1.4,
-            y: 1.4,
-            z: 1.4,
+            x: 1.5,
+            y: 1.5,
+            z: 1.5,
             ease: "back.out(2.5)",
             duration: 0.7,
           })
@@ -56,24 +63,39 @@ export default class Preloader extends EventEmitter {
       } else {
         this.timeline
           .to(this.roomChildren.potionpress.scale, {
-            x: 1.4,
-            y: 1.4,
-            z: 1.4,
+            x: 1.5,
+            y: 1.5,
+            z: 1.5,
             ease: "back.out(2.5)",
             duration: 0.7,
           })
           .to(this.room.position, {
-            z: -1,
+            z: -2,
             ease: "power1.out",
             duration: 0.7,
           });
       }
-      this.timeline.to(".intro-text .animatedis", {
-        yPercent: -100,
-        stagger: 0.06,
-        ease: "back.out(1.2)",
-        onComplete: resolve,
-      });
+      this.timeline
+        .to(".intro-text .animatedis", {
+          yPercent: 0,
+          stagger: 0.06,
+          ease: "back.out(1.2)",
+        })
+        .to(
+          ".arrow-svg-wrapper",
+          {
+            opacity: 1,
+          },
+          "same"
+        )
+        .to(
+          ".toggle-bar",
+          {
+            opacity: 1,
+            onComplete: resolve,
+          },
+          "same"
+        );
     });
   }
 
@@ -82,11 +104,22 @@ export default class Preloader extends EventEmitter {
       this.secondTimeline = new GSAP.timeline();
 
       this.secondTimeline
-        .to(".intro-text .animatedis", {
-          yPercent: 100,
-          stagger: 0.05,
-          ease: "back.in(1.7)",
-        })
+        .to(
+          ".intro-text .animatedis",
+          {
+            yPercent: 100,
+            stagger: 0.05,
+            ease: "back.in(1.7)",
+          },
+          "fadeout"
+        )
+        .to(
+          ".arrow-svg-wrapper",
+          {
+            opacity: 0,
+          },
+          "fadeout"
+        )
         .to(this.room.position, {
           x: 0,
           y: 0,
@@ -125,6 +158,11 @@ export default class Preloader extends EventEmitter {
           },
           "same"
         )
+        .set(this.camera.orthographicCamera.position, {
+          x: 0,
+          y: 6.5,
+          z: 10,
+        })
         .set(this.roomChildren.room.scale, {
           x: 1,
           y: 1,
@@ -912,19 +950,18 @@ export default class Preloader extends EventEmitter {
             ease: "power1.out",
             duration: 0.3,
             delay: 0.1,
-            onComplete: resolve,
           },
           "bookSame3"
         )
         .to(".hero-main-title .animatedis", {
-          yPercent: -100,
+          yPercent: 0,
           stagger: 0.07,
           ease: "back.out(1.2)",
         })
         .to(
           ".hero-second-subheading .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.2)",
           },
@@ -933,7 +970,7 @@ export default class Preloader extends EventEmitter {
         .to(
           ".second-sub .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.2)",
           },
@@ -942,12 +979,16 @@ export default class Preloader extends EventEmitter {
         .to(
           ".hero-main-description .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.2)",
           },
           "title"
-        );
+        )
+        .to(".arrow-svg-wrapper", {
+          opacity: 1,
+          onComplete: resolve,
+        });
     });
   }
 
@@ -994,6 +1035,7 @@ export default class Preloader extends EventEmitter {
   async playSecondIntro() {
     this.moveFlag = false;
     await this.secondIntro();
+    this.scaleFlag = false;
     this.emit("playanimation");
     this.emit("enablecontrols");
   }
@@ -1001,13 +1043,17 @@ export default class Preloader extends EventEmitter {
     if (this.device === "desktop") {
       this.room.position.set(-0.8, 0, 0);
     } else {
-      this.room.position.set(0, 0, -1);
+      this.room.position.set(0, 0, -2);
     }
   }
 
   scale() {
     this.roomChildren.rectLight.width = 0;
     this.roomChildren.rectLight.height = 0;
+    this.roomChildren.rectLight2.width = 0;
+    this.roomChildren.rectLight2.height = 0;
+    this.roomChildren.rectLight3.width = 0;
+    this.roomChildren.rectLight3.height = 0;
 
     if (this.device === "desktop") {
       this.room.scale.set(0.15, 0.15, 0.15);
@@ -1022,7 +1068,7 @@ export default class Preloader extends EventEmitter {
     }
 
     if (this.scaleFlag) {
-      //this.scale();
+      this.scale();
     }
   }
 }

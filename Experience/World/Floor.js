@@ -13,7 +13,7 @@ export default class Floor {
   setFloor() {
     this.geometry = new THREE.PlaneGeometry(100, 100);
     this.material = new THREE.MeshStandardMaterial({
-      color: 0xbdf4ff,
+      color: 0xffe6a2,
       side: THREE.BackSide,
     });
     this.plane = new THREE.Mesh(this.geometry, this.material);
@@ -25,9 +25,9 @@ export default class Floor {
 
   setCircles() {
     const geometry = new THREE.CircleGeometry(5, 64);
-    const material = new THREE.MeshStandardMaterial({ color: 0x823b11 });
-    const material2 = new THREE.MeshStandardMaterial({ color: 0xb36584 });
-    const material3 = new THREE.MeshStandardMaterial({ color: 0x14a440 });
+    const material = new THREE.MeshStandardMaterial({ color: 0xffab7a });
+    const material2 = new THREE.MeshStandardMaterial({ color: 0x76b4eb });
+    const material3 = new THREE.MeshStandardMaterial({ color: 0x9deba5 });
 
     this.circleFirst = new THREE.Mesh(geometry, material);
     this.circleSecond = new THREE.Mesh(geometry, material2);

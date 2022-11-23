@@ -48,7 +48,7 @@ export default class Room extends EventEmitter {
         child.name === "step-2" ||
         child.name === "step-3"
       ) {
-        child.position.y = -3;
+        child.position.y = -4;
         child.scale.set(1, 1, 1);
       }
 
@@ -79,9 +79,41 @@ export default class Room extends EventEmitter {
 
     this.roomChildren["rectLight"] = rectLight;
 
-    //const rectLightHelper = new RectAreaLightHelper(rectLight);
-    //rectLight.add(rectLightHelper);
-    //console.log(this.room);bubble
+    const width2 = 0.5;
+    const height2 = 0.5;
+    const intensity2 = 0.7;
+    const rectLight2 = new THREE.RectAreaLight(
+      0xffffff,
+      intensity2,
+      width2,
+      height2
+    );
+    rectLight2.position.set(-6, 10, 3);
+    rectLight2.rotation.x = -Math.PI / 2;
+    rectLight2.rotation.z = Math.PI / 4;
+    this.actualRoom.add(rectLight2);
+
+    this.roomChildren["rectLight2"] = rectLight2;
+
+    const width3 = 0.5;
+    const height3 = 0.5;
+    const intensity3 = 0.7;
+    const rectLight3 = new THREE.RectAreaLight(
+      0xffffff,
+      intensity3,
+      width3,
+      height3
+    );
+    rectLight3.position.set(1, 10, -2);
+    rectLight3.rotation.x = -Math.PI / 2;
+    rectLight3.rotation.z = Math.PI / 4;
+    this.actualRoom.add(rectLight3);
+
+    this.roomChildren["rectLight3"] = rectLight3;
+
+    //const rectLightHelper = new RectAreaLightHelper(rectLight3);
+    //rectLight3.add(rectLightHelper);
+    //console.log(this.room);
 
     this.scene.add(this.actualRoom);
     this.actualRoom.scale.set(0.15, 0.15, 0.15);
